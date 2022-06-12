@@ -106,3 +106,12 @@ body {
     border-color: var(--border);
     color: var(--border);
 }
+
+#credits {
+    margin-top: 1em;
+}
+
+#credits a {
+    color: var(--wrong_position);
+    text-decoration: none;
+}
