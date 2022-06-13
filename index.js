@@ -5,7 +5,9 @@ const tries = document.getElementById("tries");
 const giveup = document.getElementById("giveup");
 const tutorial = document.getElementById("tutorial");
 let wordList = null;
+let normalizedWordList = null;
 let currentWord = null;
+let normalizedCurrentWord = null;
 let tryCount = 0;
 
 tutorial.onclick = () => {
@@ -34,22 +36,24 @@ txtTerm.onkeyup = (evt) => {
 
 function validateWord () {
     const typedWord = `${txtTerm.value}`.toUpperCase();
+    const normalizedTypedWord = removeAccents(typedWord);
 
-    if (typedWord.length != 5) return txtTerm.focus();
+    if (normalizedTypedWord.length != 5) return txtTerm.focus();
     
     txtTerm.value = "";
     txtTerm.focus();
+    if (!normalizedWordList.includes(normalizedTypedWord)) return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
 
     const div = document.createElement("div");
     div.classList.add("term");
 
-    const letters = typedWord.split("");
+    const letters = normalizedTypedWord.split("");
     letters.forEach((letter, index) => {
         const span = document.createElement("span");
         span.textContent = letter;
-        if (currentWord.charAt(index) === letter) {
+        if (normalizedCurrentWord.charAt(index) === letter) {
             span.classList.add("right");
-        } else if (currentWord.includes(letter)) {
+        } else if (normalizedCurrentWord.includes(letter)) {
             span.classList.add("wrong_position");
         } else {
             span.classList.add("wrong");
@@ -65,7 +69,7 @@ function validateWord () {
     termList.scrollTop = 0;
     tries.textContent = `${++tryCount}`;
 
-    if (typedWord === currentWord) {
+    if (normalizedTypedWord === normalizedCurrentWord) {
         alert(`Boooooooa, Jogador!\n\nVocê acertou a palavra ${currentWord} em ${tryCount} tentativas!`);
         start();
     }
@@ -73,9 +77,11 @@ function validateWord () {
 
 async function sortWord() {
     if (wordList === null) {
-        wordList = (await (await fetch("./all_words.txt")).text()).split("\n");
+        wordList = (await (await fetch("./all_words.txt")).text()).split("\n").map(w => `${w}`.toUpperCase());
+        normalizedWordList = wordList.map(removeAccents);
     }
     currentWord = `${wordList[parseInt(Math.random() * wordList.length)]}`.toUpperCase();
+    normalizedCurrentWord = removeAccents(currentWord);
     if (currentWordDiv) currentWordDiv.textContent = currentWord;
 }
 
@@ -85,6 +91,10 @@ function start() {
     sortWord();
     tryCount = 0;
     tries.innerText = '0';
+}
+
+function removeAccents(str) {
+    return `${str}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 start();
