@@ -51,7 +51,8 @@ function validateWord () {
 
     if (normalizedTypedWord.length != 5) return txtTerm.focus();
     
-    if (!normalizedWordList.includes(normalizedTypedWord)) {
+    const index = normalizedWordList.indexOf(normalizedTypedWord);
+    if (index === -1) {
         incrementTries();
         return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
     }
@@ -59,7 +60,7 @@ function validateWord () {
     const div = document.createElement("div");
     div.classList.add("term");
 
-    const letters = normalizedTypedWord.split("");
+    const letters = wordList[index].split("");
     letters.forEach((letter, index) => {
         const span = document.createElement("span");
         span.textContent = letter;
