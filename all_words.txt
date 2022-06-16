@@ -1702,3 +1702,5 @@ zoada
 zorro
 zunir
 arlan
+quero
+morte

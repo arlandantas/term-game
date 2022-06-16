@@ -2,10 +2,14 @@
 
 :root {
     --border: #888;
-    --right: #580;
-    --wrong_position: #880;
+    --right: #5a0;
+    --wrong_position: #a70;
     --wrong: #888;
 }
+
+.color-right { color: var(--right); }
+.color-wrong-position { color: var(--wrong_position); }
+.color-wrong { color: var(--wrong); }
 
 * {
     font-family: 'Arvo', monospace;
@@ -23,6 +27,13 @@ body {
     color: #ccc;
 }
 
+#game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #txt_term {
     text-transform: uppercase;
     border: 1px solid var(--border);
@@ -34,6 +45,7 @@ body {
     text-align: center;
     font-size: 1.2em;
     margin: 0 .5em;
+    width: 100%;
 }
 
 #field {
@@ -41,8 +53,7 @@ body {
     justify-content: center;
     align-items: center;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 #term_list {
@@ -88,6 +99,13 @@ body {
     border-color: var(--wrong);
 }
 
+#bts {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
 #bts button {
     padding: .5em;
     margin: 1em .5em;
@@ -95,16 +113,13 @@ body {
     background: none;
     border-radius: .5em;
     cursor: pointer;
+    border-color: var(--border);
+    color: var(--border);
 }
 
 #giveup {
     border-color: #e88;
     color: #e88;
-}
-
-#tutorial {
-    border-color: var(--border);
-    color: var(--border);
 }
 
 #credits {
@@ -114,4 +129,12 @@ body {
 #credits a {
     color: var(--wrong_position);
     text-decoration: none;
+}
+
+#howtoplay {
+    margin: 2em;
+}
+
+#howtoplay h1 {
+    text-align: center;
 }

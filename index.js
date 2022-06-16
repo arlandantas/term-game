@@ -4,6 +4,9 @@ const currentWordDiv = document.getElementById("current_word");
 const tries = document.getElementById("tries");
 const giveup = document.getElementById("giveup");
 const tutorial = document.getElementById("tutorial");
+const back = document.getElementById("back");
+const howtoplay = document.getElementById("howtoplay");
+const game = document.getElementById("game");
 const WORD_MAX_LETTERS = 5;
 let wordList = null;
 let normalizedWordList = null;
@@ -11,17 +14,10 @@ let currentWord = null;
 let normalizedCurrentWord = null;
 let tryCount = 0;
 
-tutorial.onclick = () => {
-    alert(
-        "Faaaaaaala, Jogador!\n"+
-        "Eu sorteei uma palavra em português com 5 letras e você precisa adivinhar que palavra é essa!\n\n"+
-        "Mas relaxa que eu vou te dar umas dicas...\n"+
-        "A cada palavra que você digitar eu vou dizer quais letras você acertou.\n\n"+
-        "A letra que estiver na posição certa vai aparecer em VERDE.\n"+
-        "Se você acertou uma letra, mas errou a posição, ela vai aparecer AMARELA.\n"+
-        "Mas se a letra não está na palavra, ela vai aparecer CINZA.\n\n"+
-        "Viu como é fácil!? Agora vai lá, mostra como você é inteligente!\n"
-    );
+tutorial.onclick = back.onclick = () => {
+    game.style.display = game.style.display != 'none' ? 'none' : '';
+    howtoplay.style.display = howtoplay.style.display != 'none' ? 'none' : '';
+    focusTxtTerm();
 };
 
 giveup.onclick = () => {

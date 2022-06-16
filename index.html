@@ -8,24 +8,42 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div id="field">
-        <div>Termo:</div>
-        <input type="text" id="txt_term" placeholder="Digite uma palavra" autofocus>
+    <div id="game">
+        <div id="field">
+            <div>Termo:</div>
+            <input type="text" id="txt_term" placeholder="Digite uma palavra" autofocus>
+        </div>
+        <div>
+            Tentativas: <span id="tries">0</span>
+        </div>
+        <!-- <div id="current_word"></div> -->
+        <div id="term_list"></div>
+        <div id="bts">
+            <button id="tutorial">Como Jogar?</button>
+            <button id="giveup">Desistir</button>
+        </div>
     </div>
-    <div>
-        Tentativas: <span id="tries">0</span>
-    </div>
-    <!-- <div id="current_word"></div> -->
-    <div id="term_list"></div>
-    <div id="bts">
-        <button id="tutorial">Como Jogar?</button>
-        <button id="giveup">Desistir</button>
+    <div id="howtoplay" style="display: none;">
+        <h1>Termo</h1>
+        <div id="content">
+            <p>Faaaaaaala, Jogador!</p>
+            <p>Eu sorteei uma palavra em português com 5 letras e você precisa adivinhar que palavra é essa!</p>
+            <p>Mas relaxa que eu vou te dar umas dicas...</p>
+            <p>A cada palavra que você digitar eu vou dizer quais letras você acertou.</p>
+            <p>A letra que estiver na posição certa vai aparecer em <span class="color-right">VERDE</span>.</p>
+            <p>Se você acertou uma letra, mas errou a posição, ela vai aparecer <span class="color-wrong-position">AMARELA</span>.</p>
+            <p>Mas se a letra não está na palavra, ela vai aparecer <span class="color-wrong">CINZA</span>.</p>
+            <p>Viu como é fácil!? Agora vai lá, mostra como você é inteligente!</p>
+        </div>
+        <div id="bts">
+            <button id="back">Voltar</button>
+        </div>
     </div>
     <div id="credits">
         Feito com ❤️ por
         <a href="https://arlandantas.github.io" target="_blank" rel="noopener noreferrer">Arlan Dantas</a>
     </div>
-    <small style="margin-top: 1em;">Versão: 0.2</small>
+    <small style="margin-top: 1em;">Versão: 0.3</small>
     <script src="./index.js"></script>
 </body>
 </html>
