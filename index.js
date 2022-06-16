@@ -26,9 +26,11 @@ giveup.onclick = () => {
 };
 
 txtTerm.onkeyup = (evt) => {
-    if (evt.keyCode === 8) return true;
     evt.preventDefault();
-    const onlyLettersContent = `${txtTerm.value}`.replace(/(\s|_)/g, '');
+    let onlyLettersContent = `${txtTerm.value}`.replace(/(\s|_)/g, '');
+    if (evt.keyCode === 8) {
+        onlyLettersContent = onlyLettersContent.substring(0, onlyLettersContent.length - 1);
+    }
     if (onlyLettersContent.length === WORD_MAX_LETTERS) {
         txtTerm.value = onlyLettersContent;
         validateWord();
