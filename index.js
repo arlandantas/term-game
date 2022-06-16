@@ -26,7 +26,6 @@ giveup.onclick = () => {
 };
 
 txtTerm.onkeyup = (evt) => {
-    evt.preventDefault();
     let onlyLettersContent = `${txtTerm.value}`.replace(/(\s|_)/g, '');
     if (evt.keyCode === 8) {
         onlyLettersContent = onlyLettersContent.substring(0, onlyLettersContent.length - 1);
