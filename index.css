@@ -38,7 +38,6 @@ body {
     text-transform: uppercase;
     border: 1px solid var(--border);
     padding: .5em;
-    border-radius: .5em;
     background: none;
     color: inherit;
     outline: none;
@@ -76,7 +75,6 @@ body {
 #term_list .term span {
     border: 1px solid var(--border);
     font-size: 1.5em;
-    border-radius: .15em;
     margin: .1em;
     width: 2em;
     line-height: 2em;
@@ -111,13 +109,12 @@ body {
     margin: 1em .5em;
     border: 1px solid;
     background: none;
-    border-radius: .5em;
     cursor: pointer;
     border-color: var(--border);
     color: var(--border);
 }
 
-#giveup {
+#bts button#giveup {
     border-color: #e88;
     color: #e88;
 }
@@ -136,5 +133,6 @@ body {
 }
 
 #howtoplay h1 {
+    margin-top: 0;
     text-align: center;
 }
