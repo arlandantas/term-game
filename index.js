@@ -4,6 +4,7 @@ const currentWordDiv = document.getElementById("current_word");
 const tries = document.getElementById("tries");
 const giveup = document.getElementById("giveup");
 const tutorial = document.getElementById("tutorial");
+const WORD_MAX_LETTERS = 5;
 let wordList = null;
 let normalizedWordList = null;
 let currentWord = null;
@@ -29,8 +30,20 @@ giveup.onclick = () => {
 };
 
 txtTerm.onkeyup = (evt) => {
-    if (evt.keyCode === 13 || txtTerm.value.length === 5) {
+    if (evt.keyCode === 8) return true;
+    evt.preventDefault();
+    const onlyLettersContent = `${txtTerm.value}`.replace(/(\s|_)/g, '');
+    if (onlyLettersContent.length === WORD_MAX_LETTERS) {
+        txtTerm.value = onlyLettersContent;
         validateWord();
+    } else {
+        let letters = onlyLettersContent.split('');
+        letters = [
+            ...letters,
+            ...Array.from({length: WORD_MAX_LETTERS - letters.length}, () => "_"),
+        ];
+        txtTerm.value = letters.join(" ");
+        focusTxtTerm();
     }
 }
 
@@ -40,8 +53,7 @@ function validateWord () {
 
     if (normalizedTypedWord.length != 5) return txtTerm.focus();
     
-    txtTerm.value = "";
-    txtTerm.focus();
+    clearTxtTerm();
     if (!normalizedWordList.includes(normalizedTypedWord)) return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
 
     const div = document.createElement("div");
@@ -91,6 +103,18 @@ function start() {
     sortWord();
     tryCount = 0;
     tries.innerText = '0';
+    clearTxtTerm();
+}
+
+function clearTxtTerm() {
+    txtTerm.value = "_ _ _ _ _";
+    focusTxtTerm();
+}
+
+function focusTxtTerm() {
+    txtTerm.focus();
+    const firstUnderscore = txtTerm.value.indexOf("_");
+    txtTerm.setSelectionRange(firstUnderscore, firstUnderscore + 1);
 }
 
 function removeAccents(str) {
