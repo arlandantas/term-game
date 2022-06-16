@@ -51,8 +51,8 @@ function validateWord () {
 
     if (normalizedTypedWord.length != 5) return txtTerm.focus();
     
-    const index = normalizedWordList.indexOf(normalizedTypedWord);
-    if (index === -1) {
+    const word_index = normalizedWordList.indexOf(normalizedTypedWord);
+    if (word_index === -1) {
         incrementTries();
         return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
     }
@@ -60,10 +60,10 @@ function validateWord () {
     const div = document.createElement("div");
     div.classList.add("term");
 
-    const letters = wordList[index].split("");
+    const letters = typedWord.split("");
     letters.forEach((letter, index) => {
         const span = document.createElement("span");
-        span.textContent = letter;
+        span.textContent = wordList[word_index].charAt(index);
         if (normalizedCurrentWord.charAt(index) === letter) {
             span.classList.add("right");
         } else if (normalizedCurrentWord.includes(letter)) {
