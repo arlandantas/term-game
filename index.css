@@ -45,6 +45,7 @@ body {
     font-size: 1.2em;
     margin: 0 .5em;
     width: 100%;
+    box-shadow: 2px 2px 2px 1px #000;
 }
 
 #field {
@@ -80,6 +81,7 @@ body {
     line-height: 2em;
     text-align: center;
     flex-grow: 0;
+    box-shadow: 1px 1px 1px 1px #000;
 }
 
 #term_list .term span.right {
@@ -112,6 +114,7 @@ body {
     cursor: pointer;
     border-color: var(--border);
     color: var(--border);
+    box-shadow: 1px 1px 1px 1px #000;
 }
 
 #bts button#giveup {
