@@ -16,7 +16,7 @@
     </script>
 </head>
 <body>
-    <div id="game">
+    <div id="game" class="page">
         <div id="field">
             <div>Termo:</div>
             <input type="text" id="txt_term" placeholder="Digite uma palavra" autofocus>
@@ -26,15 +26,15 @@
         </div>
         <!-- <div id="current_word"></div> -->
         <div id="term_list"></div>
-        <div id="bts">
-            <button id="tutorial">Como Jogar?</button>
-            <button id="giveup">Desistir</button>
+        <div class="buttons">
+            <button id="bt_tutorial">Como Jogar?</button>
+            <button id="bt_giveup">Desistir</button>
         </div>
-        <div id="bts">
-            <button id="multiplayer">Desafiar Alguém</button>
+        <div class="buttons">
+            <button id="bt_multiplayer">Desafiar Alguém</button>
         </div>
     </div>
-    <div id="howtoplay" style="display: none;">
+    <div id="howtoplay" class="page" style="display: none;">
         <h1>Termo</h1>
         <div id="content">
             <p>Faaaaaaala, Jogador!</p>
@@ -48,10 +48,22 @@
             <h2>Desafiar Alguém</h2>
             <p>O modo "desafiar alguém" é para você desafiar outra pessoa...</p>
             <p>Você que vai escolher a palavra e a outra pessoa que vai ter que descobrir qual foi sua escolha!</p>
-            <p>OBS: Por enquanto a pessoa vai ter que descobrir a palavra no mesmo dispositivo que você. O modo online vem em breve 😉!</p>
         </div>
-        <div id="bts">
-            <button id="back">Voltar</button>
+        <div class="buttons">
+            <button class="back">Voltar</button>
+        </div>
+    </div>
+    <div id="multiplayer" class="page" style="display: none;">
+        <h1>Termo</h1>
+        <div id="content">
+            <label for="txt_multiplayer_word">Palavra desafio:</label>
+            <input type="text" id="txt_multiplayer_word">
+        </div>
+        <a id="challenge_link" style="display: none;"></a>
+        <div class="buttons">
+            <button class="back">Cancelar</button>
+            <button id="bt_local">Desafiar nesse dispositivo</button>
+            <button id="bt_link">Gerar link</button>
         </div>
     </div>
     <div id="credits">
@@ -60,5 +72,7 @@
     </div>
     <small style="margin-top: 1em;">Versão: 0.4</small>
     <script src="./index.js"></script>
+    <script src="./navigation.js"></script>
+    <script src="./multiplayer.js"></script>
 </body>
 </html>

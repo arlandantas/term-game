@@ -13,39 +13,44 @@
 
 * {
     font-family: 'Arvo', monospace;
+    box-sizing: border-box;
 }
 
 body {
+    padding: 2em 0;
     margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 4em);
     background: #222;
     color: #ccc;
 }
 
-#game {
+.page {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 2em;
 }
 
-#txt_term {
-    text-transform: uppercase;
+input[type=text], textarea {
     border: 1px solid var(--border);
     padding: .5em;
     background: none;
     color: inherit;
     outline: none;
+    width: 100%;
+    box-shadow: 2px 2px 2px 1px #000;
+}
+
+#txt_term {
+    text-transform: uppercase;
     text-align: center;
     font-size: 1.2em;
     margin: 0 .5em;
-    width: 100%;
-    box-shadow: 2px 2px 2px 1px #000;
 }
 
 #field {
@@ -99,14 +104,14 @@ body {
     border-color: var(--wrong);
 }
 
-#bts {
+.buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
 }
 
-#bts button {
+.buttons button {
     padding: .5em;
     margin: 1em .5em;
     border: 1px solid;
@@ -117,7 +122,7 @@ body {
     box-shadow: 1px 1px 1px 1px #000;
 }
 
-#bts button#giveup {
+.buttons button#bt_giveup {
     border-color: #e88;
     color: #e88;
 }
@@ -131,11 +136,12 @@ body {
     text-decoration: none;
 }
 
-#howtoplay {
-    margin: 2em;
-}
-
 #howtoplay h1 {
     margin-top: 0;
     text-align: center;
+}
+
+#multiplayer a {
+    color: inherit;
+    margin: 1em 0;
 }

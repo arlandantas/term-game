@@ -2,12 +2,7 @@ const txtTerm = document.getElementById("txt_term");
 const termList = document.getElementById("term_list");
 const currentWordDiv = document.getElementById("current_word");
 const tries = document.getElementById("tries");
-const giveup = document.getElementById("giveup");
-const tutorial = document.getElementById("tutorial");
-const multiplayer = document.getElementById("multiplayer");
-const back = document.getElementById("back");
-const howtoplay = document.getElementById("howtoplay");
-const game = document.getElementById("game");
+const btGiveup = document.getElementById("bt_giveup");
 const WORD_MAX_LETTERS = 5;
 let wordList = null;
 let normalizedWordList = null;
@@ -15,26 +10,9 @@ let currentWord = null;
 let normalizedCurrentWord = null;
 let tryCount = 0;
 
-tutorial.onclick = back.onclick = () => {
-    game.style.display = game.style.display != 'none' ? 'none' : '';
-    howtoplay.style.display = howtoplay.style.display != 'none' ? 'none' : '';
-    focusTxtTerm();
-};
-
-giveup.onclick = () => {
+btGiveup.onclick = () => {
     alert("Ah, não, Jogador!!!\n\nA palavra era: "+currentWord);
     start();
-};
-
-multiplayer.onclick = () => {
-    const typedWord = `${prompt("Digite uma palavra para a outro jogador descobrir:")}`.toUpperCase();
-    if (typedWord === "NULL") return;
-    const index = normalizedWordList.indexOf(removeAccents(typedWord));
-    if (index === -1) {
-        return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
-    }
-    start(wordList[index]);
-    alert("Pronto, agora peça para para o outro jogador descobrir a palavra!")
 };
 
 txtTerm.oninput = (evt) => {
@@ -66,7 +44,7 @@ function validateWord () {
     const normalizedTypedWord = removeAccents(typedWord);
     const word_index = normalizedWordList.indexOf(normalizedTypedWord);
     if (word_index === -1) {
-        return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
+        return alertUnknownWord(typedWord);
     }
 
     const letters = typedWord.split("");
@@ -113,15 +91,23 @@ function validateWord () {
 
     if (normalizedTypedWord === normalizedCurrentWord) {
         alert(`Boooooooa, Jogador!\n\nVocê acertou a palavra ${currentWord} em ${tryCount} tentativas!`);
-        start();
+        if (location.search != '') {
+            location.search = '';
+        } else {
+            start();
+        }
     }
 };
 
-async function sortWord(word = null) {
+async function loadWordList() {
     if (wordList === null) {
         wordList = (await (await fetch("./all_words.txt")).text()).split("\n").map(w => `${w}`.toUpperCase());
         normalizedWordList = wordList.map(removeAccents);
     }
+}
+
+async function sortWord(word = null) {
+    await loadWordList();
     if (word === null) {
         word = `${wordList[parseInt(Math.random() * wordList.length)]}`;
     }
@@ -130,14 +116,13 @@ async function sortWord(word = null) {
     if (currentWordDiv) currentWordDiv.textContent = currentWord;
 }
 
-function start(word = null) {
+async function start(word = null) {
     termList.innerHTML = '<span>Digite um termo para começar...</span>';
     termList.scrollTop = 0;
-    sortWord(word).then(() => {
-        tryCount = 0;
-        tries.innerText = '0';
-        clearTxtTerm();
-    });
+    await sortWord(word);
+    tryCount = 0;
+    tries.innerText = '0';
+    clearTxtTerm();
 }
 
 function clearTxtTerm() {
@@ -170,6 +155,10 @@ function incrementTries() {
 
 function removeAccents(str) {
     return `${str}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function alertUnknownWord(word) {
+    alert(`Ihhh, jogador!\nEu não conheço a palavra ${word} não! 😿`);
 }
 
 start();
