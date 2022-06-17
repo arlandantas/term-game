@@ -11,7 +11,7 @@ let normalizedCurrentWord = null;
 let tryCount = 0;
 
 btGiveup.onclick = () => {
-    alert("Ah, não, Jogador!!!\n\nA palavra era: "+currentWord);
+    showAlert(`<p>A palavra era: <b>${currentWord}</b></p>`, "Ah, não, jogador!")
     start();
 };
 
@@ -90,12 +90,21 @@ function validateWord () {
     incrementTries();
 
     if (normalizedTypedWord === normalizedCurrentWord) {
-        alert(`Boooooooa, Jogador!\n\nVocê acertou a palavra ${currentWord} em ${tryCount} tentativas!`);
-        if (location.search != '') {
-            location.search = '';
-        } else {
-            start();
-        }
+        showAlert(
+            `
+            <p>Boooooooa, Jogador!</p>
+            <p>Você acertou a palavra ${currentWord} em ${tryCount} tentativas!</p>
+            <img src="https://i.gifer.com/UJr.gif" alt="Minions batendo palmas" />
+            `,
+            "UHUUUUULLLLLL",
+            () => {
+                if (location.search != '') {
+                    location.search = '';
+                } else {
+                    start();
+                }
+            }
+        );
     }
 };
 
@@ -164,7 +173,7 @@ function removeAccents(str) {
 }
 
 function alertUnknownWord(word) {
-    alert(`Ihhh, jogador!\nEu não conheço a palavra ${word} não! 😿`);
+    showAlert(`Eu ainda não conheço a palavra ${word}! 😿`, "Ihhh, jogador!");
 }
 
 start();

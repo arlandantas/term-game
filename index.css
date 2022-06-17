@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
+    --background: #222;
     --border: #888;
     --right: #5a0;
     --wrong_position: #a70;
@@ -24,7 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 4em);
-    background: #222;
+    background: var(--background);
     color: #ccc;
 }
 
@@ -144,4 +145,37 @@ input[type=text], textarea {
 #multiplayer a {
     color: inherit;
     margin: 1em 0;
+}
+
+#alert {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: #000c;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#alert #view {
+    background: var(--background);
+    box-shadow: 2px 2px 2px 1px #000;
+    padding: 1em;
+    max-width: 80vw;
+    text-align: center;
+}
+
+#alert #view #title {
+    margin: 0;
+    font-size: 1.25em;
+}
+
+#alert #view #content {
+    margin: .5em 0;
+}
+
+#alert #view #content img {
+    width: 100%;
 }
