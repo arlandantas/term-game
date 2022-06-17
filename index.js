@@ -4,6 +4,7 @@ const currentWordDiv = document.getElementById("current_word");
 const tries = document.getElementById("tries");
 const giveup = document.getElementById("giveup");
 const tutorial = document.getElementById("tutorial");
+const multiplayer = document.getElementById("multiplayer");
 const back = document.getElementById("back");
 const howtoplay = document.getElementById("howtoplay");
 const game = document.getElementById("game");
@@ -23,6 +24,16 @@ tutorial.onclick = back.onclick = () => {
 giveup.onclick = () => {
     alert("Ah, não, Jogador!!!\n\nA palavra era: "+currentWord);
     start();
+};
+
+multiplayer.onclick = () => {
+    const typedWord = `${prompt("Digite uma palavra para a outro jogador descobrir:")}`.toUpperCase();
+    const index = normalizedWordList.indexOf(removeAccents(typedWord));
+    if (index === -1) {
+        return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
+    }
+    start(wordList[index]);
+    alert("Pronto, agora peça para para o outro jogador descobrir a palavra!")
 };
 
 txtTerm.oninput = (evt) => {
@@ -105,27 +116,27 @@ function validateWord () {
     }
 };
 
-function countOcurrences(char, str) {
-    return str.replace(`/[^${char}]/g`, '').length;
-}
-
-async function sortWord() {
+async function sortWord(word = null) {
     if (wordList === null) {
         wordList = (await (await fetch("./all_words.txt")).text()).split("\n").map(w => `${w}`.toUpperCase());
         normalizedWordList = wordList.map(removeAccents);
     }
-    currentWord = `${wordList[parseInt(Math.random() * wordList.length)]}`.toUpperCase();
+    if (word === null) {
+        word = `${wordList[parseInt(Math.random() * wordList.length)]}`;
+    }
+    currentWord = word.toUpperCase();
     normalizedCurrentWord = removeAccents(currentWord);
     if (currentWordDiv) currentWordDiv.textContent = currentWord;
 }
 
-function start() {
+function start(word = null) {
     termList.innerHTML = '<span>Digite um termo para começar...</span>';
     termList.scrollTop = 0;
-    sortWord();
-    tryCount = 0;
-    tries.innerText = '0';
-    clearTxtTerm();
+    sortWord(word).then(() => {
+        tryCount = 0;
+        tries.innerText = '0';
+        clearTxtTerm();
+    });
 }
 
 function clearTxtTerm() {
