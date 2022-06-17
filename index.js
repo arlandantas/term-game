@@ -30,6 +30,7 @@ txtTerm.oninput = (evt) => {
         let onlyLettersContent = getOnlyLettersTxtTerm();
         onlyLettersContent = onlyLettersContent.substring(0, onlyLettersContent.length - 1);
         maskTxtTerm(onlyLettersContent);
+        focusTxtTerm();
     } else {
         let onlyLettersContent = getOnlyLettersTxtTerm();
         if (onlyLettersContent.length === WORD_MAX_LETTERS) {
@@ -47,37 +48,53 @@ txtTerm.onfocus = () => focusTxtTerm()
 
 function validateWord () {
     const typedWord = getOnlyLettersTxtTerm().toUpperCase();
-    const normalizedTypedWord = removeAccents(typedWord);
-
-    if (normalizedTypedWord.length != 5) return txtTerm.focus();
     
+    if (typedWord.length !== 5) return txtTerm.focus();
+    
+    const normalizedTypedWord = removeAccents(typedWord);
     const word_index = normalizedWordList.indexOf(normalizedTypedWord);
     if (word_index === -1) {
-        incrementTries();
         return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
     }
 
-    const div = document.createElement("div");
-    div.classList.add("term");
-
     const letters = typedWord.split("");
+    const childs = Array(5);
+    let clearedCurrentWord = `${normalizedCurrentWord}`;
     letters.forEach((letter, index) => {
+        if (clearedCurrentWord.charAt(index) === letter) {
+            const span = document.createElement("span");
+            span.textContent = wordList[word_index].charAt(index);
+            span.classList.add("right");
+            childs[index] = span;
+            letters[index] = null;
+            clearedCurrentWord = `${
+                clearedCurrentWord.substring(0, index)
+            }*${
+                clearedCurrentWord.substring(index+1, WORD_MAX_LETTERS)
+            }`
+        }
+    });
+    clearedCurrentWord = clearedCurrentWord.replace(/\*/g, '');
+    letters.forEach((letter, index) => {
+        if (letter === null) return;
         const span = document.createElement("span");
         span.textContent = wordList[word_index].charAt(index);
-        if (normalizedCurrentWord.charAt(index) === letter) {
-            span.classList.add("right");
-        } else if (normalizedCurrentWord.includes(letter)) {
+        if (clearedCurrentWord.includes(letter)) {
             span.classList.add("wrong_position");
+            clearedCurrentWord = clearedCurrentWord.replace(letter, '');
         } else {
             span.classList.add("wrong");
         }
-        div.appendChild(span);
+        childs[index] = span;
     });
 
     if (tryCount === 0) {
         termList.innerHTML = "";
     }
 
+    const div = document.createElement("div");
+    div.classList.add("term");
+    div.append(...childs);
     termList.prepend(div);
     termList.scrollTop = 0;
     incrementTries();
@@ -87,6 +104,10 @@ function validateWord () {
         start();
     }
 };
+
+function countOcurrences(char, str) {
+    return str.replace(`/[^${char}]/g`, '').length;
+}
 
 async function sortWord() {
     if (wordList === null) {
