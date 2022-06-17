@@ -101,7 +101,13 @@ function validateWord () {
 
 async function loadWordList() {
     if (wordList === null) {
-        wordList = (await (await fetch("./all_words.txt")).text()).split("\n").map(w => `${w}`.toUpperCase());
+        const headers = new Headers();
+        headers.append('pragma', 'no-cache');
+        headers.append('cache-control', 'no-cache');
+
+        wordList = (
+            await (await fetch("./all_words.txt", { headers, method: 'GET' })).text()
+        ).split("\n").map(w => `${w}`.toUpperCase());
         normalizedWordList = wordList.map(removeAccents);
     }
 }

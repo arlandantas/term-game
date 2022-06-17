@@ -36,7 +36,7 @@ btLink.onclick = async () => {
     challengeLink.href = url.href;
     challengeLink.innerHTML = url.href;
 
-    navigator.clipboard.writeText(challengeLink.href);
+    copyToClipboard(challengeLink);
     alert("Pronto, jogador! Já copiei o link!\nAgora só enviar para o desafiado da vez 😉!")
 };
 
@@ -51,3 +51,18 @@ async function loadChallenge() {
     }
 }
 loadChallenge();
+
+function copyToClipboard(data){
+    let tempItem = document.createElement('input');
+    tempItem.setAttribute('type','text');
+    tempItem.setAttribute('display','none');
+    let content = data;
+    if (data instanceof HTMLElement) {
+        content = data.innerHTML;
+    }
+    tempItem.setAttribute('value',content);
+    document.body.appendChild(tempItem);
+    tempItem.select();
+    document.execCommand('copy');
+    tempItem.parentElement.removeChild(tempItem);
+  }
