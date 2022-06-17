@@ -28,6 +28,7 @@ giveup.onclick = () => {
 
 multiplayer.onclick = () => {
     const typedWord = `${prompt("Digite uma palavra para a outro jogador descobrir:")}`.toUpperCase();
+    if (typedWord === "NULL") return;
     const index = normalizedWordList.indexOf(removeAccents(typedWord));
     if (index === -1) {
         return alert(`Ihhh, jogador!\nEu não conheço a palavra ${typedWord} não! 😿`);
