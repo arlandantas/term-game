@@ -10,7 +10,6 @@ function openPage(page) {
     pages.namedItem(page).style.display = '';
     focusTxtTerm();
 }
-openPage("multiplayer");
 
 btTutorial.onclick = () => openPage('howtoplay');
 btMultiplayer.onclick = () => openPage('multiplayer');
