@@ -29,6 +29,8 @@ btLink.onclick = async () => {
     if (typedWordIndex === -1) return;
 
     let url = new URL(location.href);
+    url.searchParams.delete("challengeVersion");
+    url.searchParams.delete("challengeIndex");
     url.searchParams.append("challengeVersion", 0);
     url.searchParams.append("challengeIndex", typedWordIndex);
 
