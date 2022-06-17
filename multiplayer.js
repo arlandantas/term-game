@@ -36,6 +36,7 @@ btLink.onclick = async () => {
     challengeLink.style.display = '';
     challengeLink.href = url.href;
     challengeLink.innerHTML = url.href;
+    txtMultiplayerWord.value = '';
 
     copyToClipboard(challengeLink);
     showAlert("Já copiei o link!<br>Agora só enviar para o desafiado da vez 😉!", "Pronto, jogador!")
